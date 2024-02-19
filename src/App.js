@@ -74,8 +74,8 @@ function App() {
       <div className="App">
         <Header />
         <div className="container container-fluid">
-          <WelcomeMessage />
-          <Route path="/" component={Home} exact />
+          {/* <WelcomeMessage /> */}
+          <Route path="/" component={WelcomeMessage} exact />
           <Route path="/search/:keyword" component={Home} />
           <Route path="/product/:id" component={ProductDetails} exact />
 
