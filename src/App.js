@@ -48,6 +48,7 @@ import axios from 'axios'
 // Payment
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import WelcomeMessage from './welcomeMessage'
 
 function App() {
 
@@ -73,6 +74,7 @@ function App() {
       <div className="App">
         <Header />
         <div className="container container-fluid">
+          <WelcomeMessage />
           <Route path="/" component={Home} exact />
           <Route path="/search/:keyword" component={Home} />
           <Route path="/product/:id" component={ProductDetails} exact />
