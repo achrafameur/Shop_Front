@@ -27,7 +27,7 @@ const Header = () => {
         <div className="col-12 col-md-3">
           <div className="navbar-brand">
             <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-              SHOP
+              SHOP_PROJECT
             </Link>
           </div>
         </div>
