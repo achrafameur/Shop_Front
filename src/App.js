@@ -75,6 +75,17 @@ function App() {
         <Header />
         <div className="container container-fluid">
           <WelcomeMessage />
+          
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/password/forgot" component={ForgotPassword} exact />
+          <Route path="/password/reset/:token" component={NewPassword} exact />
+          <ProtectedRoute path="/me" component={Profile} exact />
+          <ProtectedRoute path="/me/update" component={UpdateProfile} exact />
+          <ProtectedRoute path="/password/update" component={UpdatePassword} exact />
+          
+        { user && (
+          <>
           <Route path="/" component={Home} exact />
           <Route path="/search/:keyword" component={Home} />
           <Route path="/product/:id" component={ProductDetails} exact />
@@ -89,16 +100,10 @@ function App() {
             </Elements>
           }
 
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/password/forgot" component={ForgotPassword} exact />
-          <Route path="/password/reset/:token" component={NewPassword} exact />
-          <ProtectedRoute path="/me" component={Profile} exact />
-          <ProtectedRoute path="/me/update" component={UpdateProfile} exact />
-          <ProtectedRoute path="/password/update" component={UpdatePassword} exact />
-
           <ProtectedRoute path="/orders/me" component={ListOrders} exact />
           <ProtectedRoute path="/order/:id" component={OrderDetails} exact />
+          </>
+        )}
         </div>
 
         <ProtectedRoute path="/dashboard" isAdmin={true} component={Dashboard} exact />

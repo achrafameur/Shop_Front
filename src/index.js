@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
@@ -15,10 +15,12 @@ const options = {
 }
 
 ReactDOM.render(
-  <Provider store={store} >
-    <AlertProvider template={AlertTemplate} {...options}>
-      <App />
-    </AlertProvider>
-  </Provider>,
+  <StrictMode>
+    <Provider store={store} >
+      <AlertProvider template={AlertTemplate} {...options}>
+        <App />
+      </AlertProvider>
+    </Provider>
+  </StrictMode>,
   document.getElementById('root')
 );
