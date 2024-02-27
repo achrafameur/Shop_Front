@@ -74,7 +74,7 @@ function App() {
       <div className="App">
         <Header />
         <div className="container container-fluid">
-          <WelcomeMessage />
+          {/* <WelcomeMessage /> */}
           
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />

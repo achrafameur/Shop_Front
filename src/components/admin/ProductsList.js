@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { MDBDataTable } from 'mdbreact'
+// import { MDBDataTable } from 'mdbreact'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 
 import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader'
@@ -40,56 +41,55 @@ const ProductsList = ({ history }) => {
 
     }, [dispatch, alert, error, deleteError, isDeleted, history])
 
-    const setProducts = () => {
-        const data = {
-            columns: [
-                {
-                    label: 'ID',
-                    field: 'id',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Name',
-                    field: 'name',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Price',
-                    field: 'price',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Stock',
-                    field: 'stock',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Actions',
-                    field: 'actions',
-                },
-            ],
-            rows: []
-        }
+    // const setProducts = () => {
+    //     const data = {
+    //         columns: [
+    //             {
+    //                 label: 'ID',
+    //                 field: 'id',
+    //                 sort: 'asc'
+    //             },
+    //             {
+    //                 label: 'Name',
+    //                 field: 'name',
+    //                 sort: 'asc'
+    //             },
+    //             {
+    //                 label: 'Price',
+    //                 field: 'price',
+    //                 sort: 'asc'
+    //             },
+    //             {
+    //                 label: 'Stock',
+    //                 field: 'stock',
+    //                 sort: 'asc'
+    //             },
+    //             {
+    //                 label: 'Actions',
+    //                 field: 'actions',
+    //             },
+    //         ],
+    //         rows: []
+    //     }
 
-        products.forEach(product => {
-            data.rows.push({
-                id: product._id,
-                name: product.name,
-                price: `$${product.price}`,
-                stock: product.stock,
-                actions: <Fragment>
-                    <Link to={`/admin/product/${product._id}`} className="btn btn-primary py-1 px-2">
-                        <i className="fa fa-pencil"></i>
-                    </Link>
-                    <button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteProductHandler(product._id)}>
-                        <i className="fa fa-trash"></i>
-                    </button>
-                </Fragment>
-            })
-        })
-
-        return data;
-    }
+    //     products.forEach(product => {
+    //         data.rows.push({
+    //             id: product._id,
+    //             name: product.name,
+    //             price: `$${product.price}`,
+    //             stock: product.stock,
+    //             actions: <Fragment>
+    //                 <Link to={`/admin/product/${product._id}`} className="btn btn-primary py-1 px-2">
+    //                     <i className="fa fa-pencil"></i>
+    //                 </Link>
+    //                 <button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteProductHandler(product._id)}>
+    //                     <i className="fa fa-trash"></i>
+    //                 </button>
+    //             </Fragment>
+    //         })
+    //     })
+    //     return data;
+    // }
 
     const deleteProductHandler = (id) => {
         dispatch(deleteProduct(id))
@@ -107,7 +107,7 @@ const ProductsList = ({ history }) => {
                     <Fragment>
                         <h1 className="my-5">All Products</h1>
 
-                        {loading ? <Loader /> : (
+                        {/* {loading ? <Loader /> : (
                             <MDBDataTable
                                 data={setProducts()}
                                 className="px-3"
@@ -115,6 +115,39 @@ const ProductsList = ({ history }) => {
                                 striped
                                 hover
                             />
+                        )} */}
+                        {loading ? <Loader /> : (
+                            <TableContainer component={Paper}>
+                                <Table aria-label="products table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>ID</TableCell>
+                                            <TableCell>Name</TableCell>
+                                            <TableCell>Price</TableCell>
+                                            <TableCell>Stock</TableCell>
+                                            <TableCell>Actions</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {products.map(product => (
+                                            <TableRow key={product._id}>
+                                                <TableCell>{product._id}</TableCell>
+                                                <TableCell>{product.name}</TableCell>
+                                                <TableCell>{`$${product.price}`}</TableCell>
+                                                <TableCell>{product.stock}</TableCell>
+                                                <TableCell>
+                                                    <Link to={`/admin/product/${product._id}`} className="btn btn-primary py-1 px-2">
+                                                        <i className="fa fa-pencil"></i>
+                                                    </Link>
+                                                    <Button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteProductHandler(product._id)}>
+                                                        <i className="fa fa-trash"></i>
+                                                    </Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
                         )}
 
                     </Fragment>

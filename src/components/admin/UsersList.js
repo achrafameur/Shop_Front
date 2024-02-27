@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { MDBDataTable } from 'mdbreact'
+// import { MDBDataTable } from 'mdbreact'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 
 import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader'
@@ -39,57 +40,57 @@ const UsersList = ({ history }) => {
         dispatch(deleteUser(id))
     }
 
-    const setUsers = () => {
-        const data = {
-            columns: [
-                {
-                    label: 'User ID',
-                    field: 'id',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Name',
-                    field: 'name',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Email',
-                    field: 'email',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Role',
-                    field: 'role',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Actions',
-                    field: 'actions',
-                },
-            ],
-            rows: []
-        }
+    // const setUsers = () => {
+    //     const data = {
+    //         columns: [
+    //             {
+    //                 label: 'User ID',
+    //                 field: 'id',
+    //                 sort: 'asc'
+    //             },
+    //             {
+    //                 label: 'Name',
+    //                 field: 'name',
+    //                 sort: 'asc'
+    //             },
+    //             {
+    //                 label: 'Email',
+    //                 field: 'email',
+    //                 sort: 'asc'
+    //             },
+    //             {
+    //                 label: 'Role',
+    //                 field: 'role',
+    //                 sort: 'asc'
+    //             },
+    //             {
+    //                 label: 'Actions',
+    //                 field: 'actions',
+    //             },
+    //         ],
+    //         rows: []
+    //     }
 
-        users.forEach(user => {
-            data.rows.push({
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                role: user.role,
+    //     users.forEach(user => {
+    //         data.rows.push({
+    //             id: user._id,
+    //             name: user.name,
+    //             email: user.email,
+    //             role: user.role,
 
-                actions: <Fragment>
-                    <Link to={`/admin/user/${user._id}`} className="btn btn-primary py-1 px-2">
-                        <i className="fa fa-pencil"></i>
-                    </Link>
-                    <button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteUserHandler(user._id)}>
-                        <i className="fa fa-trash"></i>
-                    </button>
-                </Fragment>
-            })
-        })
+    //             actions: <Fragment>
+    //                 <Link to={`/admin/user/${user._id}`} className="btn btn-primary py-1 px-2">
+    //                     <i className="fa fa-pencil"></i>
+    //                 </Link>
+    //                 <button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteUserHandler(user._id)}>
+    //                     <i className="fa fa-trash"></i>
+    //                 </button>
+    //             </Fragment>
+    //         })
+    //     })
 
-        return data;
-    }
+    //     return data;
+    // }
 
 
     return (
@@ -104,7 +105,7 @@ const UsersList = ({ history }) => {
                     <Fragment>
                         <h1 className="my-5">All Users</h1>
 
-                        {loading ? <Loader /> : (
+                        {/* {loading ? <Loader /> : (
                             <MDBDataTable
                                 data={setUsers()}
                                 className="px-3"
@@ -112,6 +113,39 @@ const UsersList = ({ history }) => {
                                 striped
                                 hover
                             />
+                        )} */}
+                        {loading ? <Loader /> : (
+                            <TableContainer component={Paper}>
+                                <Table aria-label="users table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>User ID</TableCell>
+                                            <TableCell>Name</TableCell>
+                                            <TableCell>Email</TableCell>
+                                            <TableCell>Role</TableCell>
+                                            <TableCell>Actions</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {users.map(user => (
+                                            <TableRow key={user._id}>
+                                                <TableCell>{user._id}</TableCell>
+                                                <TableCell>{user.name}</TableCell>
+                                                <TableCell>{user.email}</TableCell>
+                                                <TableCell>{user.role}</TableCell>
+                                                <TableCell>
+                                                    <Link to={`/admin/user/${user._id}`} className="btn btn-primary py-1 px-2">
+                                                        <i className="fa fa-pencil"></i>
+                                                    </Link>
+                                                    <Button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteUserHandler(user._id)}>
+                                                        <i className="fa fa-trash"></i>
+                                                    </Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
                         )}
 
                     </Fragment>
